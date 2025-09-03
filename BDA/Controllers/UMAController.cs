@@ -15,12 +15,6 @@ using Rotativa.AspNetCore;
 
 namespace BDA.Web.Controllers
 {
-    class BankProcessType
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-    }
-
     [Authorize]
     public class UMAController : BaseController
     {
@@ -160,6 +154,38 @@ namespace BDA.Web.Controllers
         public IActionResult Complete()
         {
             return View();
+        }
+
+        public void UploadFile(IFormFile file, Guid parentId, string fileType, string fileSubType = null, string title = null)
+        {
+            var uniqueFileName = GetUniqueFileName(file.FileName);
+            var ext = Path.GetExtension(uniqueFileName);
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/documents", uniqueFileName);
+            file.CopyTo(new FileStream(filePath, FileMode.Create));
+
+            //Save uniqueFileName to db table 
+            Attachment attachement = new Attachment();
+            attachement.FileType = fileType;
+            attachement.FileSubType = fileSubType;
+            attachement.ParentId = parentId;
+            attachement.FileName = uniqueFileName;
+            attachement.FileExtension = ext;
+            attachement.Title = title;
+            attachement.CreatedOn = DateTime.Now;
+            attachement.UpdatedOn = DateTime.Now;
+            attachement.IsActive = true;
+
+            Db.Attachment.Add(attachement);
+            Db.SaveChanges();
+        }
+
+        public string GetUniqueFileName(string fileName)
+        {
+            fileName = Path.GetFileName(fileName);
+            return Path.GetFileNameWithoutExtension(fileName)
+                   + "_"
+                   + Guid.NewGuid().ToString().Substring(0, 4)
+                   + Path.GetExtension(fileName);
         }
 
         // Action methods for workflow transitions will be added here
