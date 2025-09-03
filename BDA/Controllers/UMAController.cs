@@ -188,6 +188,51 @@ namespace BDA.Web.Controllers
                    + Path.GetExtension(fileName);
         }
 
+        public IActionResult _ProcessDetails()
+        {
+            return View();
+        }
+
+        public IActionResult _ReceiveDetails()
+        {
+            return View();
+        }
+
+        public IActionResult _ConfirmDetails()
+        {
+            return View();
+        }
+
+        public IActionResult _ActionButton()
+        {
+            return View();
+        }
+
+        public IActionResult _ActionHistory()
+        {
+            return View();
+        }
+
+        public IActionResult _StatusBar()
+        {
+            return View();
+        }
+
+        public IActionResult _Document()
+        {
+            return View();
+        }
+
+        public IActionResult _Comments()
+        {
+            return View();
+        }
+
+        public IActionResult _CreateDetails()
+        {
+            return View();
+        }
+
         // Action methods for workflow transitions will be added here
         // Action method for workflow transitions
         [HttpPost]
@@ -205,7 +250,7 @@ namespace BDA.Web.Controllers
                 string actionRole = "";
                 string byId = "";
 
-                if (model.Status == Data.Status.TGBSProcessed.ToString()) // Submit to Bank
+                if (model.Status == Data.Status.Processed.ToString()) // Submit to Bank
                 {
                     entity.Status = model.Status;
                     entity.TGBSProcessedOn = DateTime.Now;
@@ -213,7 +258,7 @@ namespace BDA.Web.Controllers
                     entity.InstructionLetterRefNo = model.InstructionLetterRefNo;
                     entity.BankProcessType = model.BankProcessType;
 
-                    actionType = Data.ActionType.TGBSProcessed.ToString();
+                    actionType = Data.ActionType.Processed.ToString();
                     byId = user.Id;
                     actionRole = Data.ActionRole.TGBSBanking.ToString();
                 }
@@ -228,14 +273,14 @@ namespace BDA.Web.Controllers
                     byId = user.Id;
                     actionRole = Data.ActionRole.TGBSReconciliation.ToString();
                 }
-                else if (model.Status == "PaymentReceived") // Incoming Payment
+                else if (model.Status == Data.Status.Received.ToString()) // Incoming Payment
                 {
                     entity.Status = model.Status;
                     entity.PaymentReceivedOn = DateTime.Now;
                     entity.TGBSPaymentReceiverId = user.Id;
                     entity.IncomingPaymentComment = model.IncomingPaymentComment;
 
-                    actionType = "PaymentReceived";
+                    actionType = Data.ActionType.Received.ToString();
                     byId = user.Id;
                     actionRole = Data.ActionRole.TGBSReconciliation.ToString();
                 }
@@ -274,5 +319,114 @@ namespace BDA.Web.Controllers
                 return Json(new { response = StatusCode(StatusCodes.Status500InternalServerError), message = e.Message });
             }
         }
+        // API methods for dropdowns and data
+        public JsonResult GetAllBankProcessType()
+        {
+            var result = new List<dynamic>
+    {
+        new { id = "1", name = "BD Cancellation - Maybank" },
+        new { id = "2", name = "BD Cancellation - UMA" }
+    };
+
+            return Json(result);
+        }
+
+        public JsonResult GetUMAById(Guid id)
+        {
+            try
+            {
+                var uma = Db.UMA.Where(x => x.Id == id)
+                    .Select(x => new {
+                        Id = x.Id,
+                        RefNo = x.RefNo,
+                        BDNo = x.BDNo,
+                        ProjectNo = x.ProjectNo,
+                        BDRequesterName = x.BDRequesterName,
+                        ERMSDocNo = x.ERMSDocNo,
+                        CoCode = x.CoCode,
+                        BA = x.BA,
+                        NameOnBD = x.NameOnBD,
+                        BDAmount = x.BDAmount,
+                        Status = x.Status,
+                        ReasonUMA = x.ReasonUMA,
+                        OthersRemark = x.OthersRemark,
+                        InstructionLetterRefNo = x.InstructionLetterRefNo,
+                        BankProcessType = x.BankProcessType,
+                        SubmittedToANMDate = x.SubmittedToANMDate,
+                        IncomingPaymentComment = x.IncomingPaymentComment,
+                        PaymentReceivedOn = x.PaymentReceivedOn
+                    }).FirstOrDefault();
+
+                return Json(uma);
+            }
+            catch (Exception e)
+            {
+                return Json(new { error = e.Message });
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Edit(Guid id)
+        {
+            var uma = Db.UMA.Find(id);
+            if (uma == null)
+            {
+                return NotFound();
+            }
+
+            // Map entity to view model
+            var model = new UMAViewModel
+            {
+                Id = uma.Id.ToString(),
+                BankDraftId = uma.BankDraftId.ToString(),
+                RefNo = uma.RefNo,
+                BDNo = uma.BDNo,
+                ProjectNo = uma.ProjectNo,
+                BDRequesterName = uma.BDRequesterName,
+                ERMSDocNo = uma.ERMSDocNo,
+                CoCode = uma.CoCode,
+                BA = uma.BA,
+                NameOnBD = uma.NameOnBD,
+                BDAmount = uma.BDAmount,
+                Status = uma.Status,
+                ReasonUMA = uma.ReasonUMA,
+                OthersRemark = uma.OthersRemark,
+                InstructionLetterRefNo = uma.InstructionLetterRefNo,
+                BankProcessType = uma.BankProcessType,
+                SubmittedToANMDate = uma.SubmittedToANMDate,
+                IncomingPaymentComment = uma.IncomingPaymentComment,
+                PaymentReceivedOn = uma.PaymentReceivedOn
+            };
+
+            // Load attachments
+            var scannedBD = Db.Attachment.Where(x => x.ParentId == uma.Id &&
+                x.FileType == Data.AttachmentType.UMA.ToString() &&
+                x.FileSubType == Data.BDAttachmentType.ScannedBankDraft.ToString()).FirstOrDefault();
+            if (scannedBD != null)
+            {
+                model.ScannedBankDraftVM = new AttachmentViewModel
+                {
+                    Id = scannedBD.Id.ToString(),
+                    FileName = scannedBD.FileName
+                };
+            }
+
+            // Route to appropriate view based on status
+            switch (uma.Status)
+            {
+                case "Submitted":
+                    return View("Process", model);
+                case "Processed":
+                    return View("Receive", model);
+                case "SubmittedToANM":
+                    return View("Confirm", model);
+                case "Received":
+                case "Complete":
+                    return View("Complete", model);
+                default:
+                    return View("Create", model);
+            }
+        }
     }
+
 }

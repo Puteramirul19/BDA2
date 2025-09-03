@@ -1,0 +1,8 @@
+﻿@model BDA.ViewModel.UMAViewModel
+
+<div class="form-group row">
+    <div class="col-sm-2 form-control-label d-flex align-items-center">Comment</div>
+    <div class="col-xl-10">
+        @Html.TextAreaFor(x => x.Comment, new { @class = "form-control", @rows = "5", @placeholder = "Enter your comment here..." })
+    </div>
+</div>

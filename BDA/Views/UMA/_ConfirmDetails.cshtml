@@ -1,0 +1,39 @@
+﻿@model BDA.ViewModel.UMAViewModel
+
+<div id="pnl_main_form" class="widget-body">
+    <div class="padding-left-20 padding-right-20">
+        <div class="row flex-row">
+            <div class="col-xl-12 col-md-12">
+                <div class="table-responsive">
+                    <div class="widget has-shadow">
+                        <div class="widget-body">
+                            <div class="padding-left-20 padding-right-20">
+                                <div class="form-group row">
+                                    <div class="col-sm-2 form-control-label d-flex align-items-center">Payment Received Date<span class="text-danger ml-2">*</span></div>
+                                    <div class="col-xl-4">
+                                        @Html.TextBoxFor(x => x.PaymentReceivedOn, new { @class = "form-control", type = "date", required = "required" })
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-2 form-control-label d-flex align-items-center">Payment Comment</div>
+                                    <div class="col-xl-10">
+                                        @Html.TextAreaFor(x => x.IncomingPaymentComment, new { @class = "form-control", @rows = "3", @placeholder = "Enter payment details or comments..." })
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-2 form-control-label d-flex align-items-center">Bank Statement<span class="text-danger ml-2">*</span></div>
+                                    <div class="col-xl-4">
+                                        <input type="file" id="BankStatement" name="BankStatement" class="form-control" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                                    </div>
+                                    <div class="col-xl-2">
+                                        <span id="spnBankStatement" class="text-info"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

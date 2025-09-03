@@ -1,0 +1,29 @@
+﻿@model BDA.ViewModel.UMAViewModel
+
+<div class="form-group row">
+    <div class="col-xl-12">
+        <div class="widget has-shadow">
+            <div class="widget-header bordered no-actions d-flex align-items-center">
+                <h4>Document Attachments</h4>
+            </div>
+            <div class="widget-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Scanned Bank Draft <span class="text-danger">*</span></label>
+                            <input type="file" id="ScannedBankDraft" name="ScannedBankDraft" class="form-control" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                            <span id="spnScannedBankDraft" class="text-info">@Model?.ScannedBankDraftVM?.FileName</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Scanned Memo</label>
+                            <input type="file" id="ScannedMemo" name="ScannedMemo" class="form-control" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                            <span id="spnScannedMemo" class="text-info">@Model?.ScannedMemoVM?.FileName</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

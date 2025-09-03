@@ -1,0 +1,66 @@
+﻿@model BDA.ViewModel.UMAViewModel
+
+<div id="pnl_main_form" class="widget-body">
+    <div class="padding-left-20 padding-right-20">
+        <div class="row flex-row">
+            <div class="col-xl-12 col-md-12">
+                <div class="table-responsive">
+                    <div class="widget has-shadow">
+                        <div class="widget-body">
+                            <div class="padding-left-20 padding-right-20">
+                                <div class="form-group row">
+                                    <div class="col-sm-2 form-control-label d-flex align-items-center">Bank Process Type<span class="text-danger ml-2">*</span></div>
+                                    <div class="col-xl-4">
+                                        @Html.DropDownListFor(x => x.BankProcessType, ViewBag.BankProcessTypeList as SelectList, "Please select bank process type", new { @class = "form-control select2", id = "ddlBankProcessType", required = "required" })
+                                    </div>
+                                </div>
+                                <div id="pnl_less_oneyear">
+                                    <div class="form-group row">
+                                        <div class="col-sm-2 form-control-label d-flex align-items-center">Instruction Letter Ref No.<span class="text-danger ml-2">*</span></div>
+                                        <div class="col-xl-4">
+                                            @Html.TextBoxFor(x => x.InstructionLetterRefNo, new { @class = "form-control", required = "required" })
+                                        </div>
+                                        <div class="col-xl-2">
+                                            <input type="button" id="btnNewLetter" class="btn btn-secondary ripple" value="New Letter" data-toggle="modal" data-target="#new-letter-modal">
+                                            <input type="button" id="btnViewLetter" class="btn btn-secondary ripple" value="View Letter" style="display:none">
+                                            <input type="button" id="btnEditLetter" class="btn btn-secondary ripple" value="Edit Letter" style="display:none">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-2 form-control-label d-flex align-items-center">Signed Letter<span class="text-danger ml-2">*</span></div>
+                                        <div class="col-xl-4">
+                                            <input type="file" id="SignedLetter" name="SignedLetter" class="form-control" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                                        </div>
+                                        <div class="col-xl-2">
+                                            <span id="spnSignedLetter" class="text-info"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="pnl_more_oneyear" style="display:none">
+                                    <div class="form-group row">
+                                        <div class="col-sm-2 form-control-label d-flex align-items-center">UMA Pin Form<span class="text-danger ml-2">*</span></div>
+                                        <div class="col-xl-4">
+                                            <input type="file" id="UMAPinForm" name="UMAPinForm" class="form-control" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                                        </div>
+                                        <div class="col-xl-2">
+                                            <span id="spnUMAPinForm" class="text-info"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-2 form-control-label d-flex align-items-center">Scanned Letter<span class="text-danger ml-2">*</span></div>
+                                        <div class="col-xl-4">
+                                            <input type="file" id="ScannedLetter" name="ScannedLetter" class="form-control" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                                        </div>
+                                        <div class="col-xl-2">
+                                            <span id="spnScannedLetter" class="text-info"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
