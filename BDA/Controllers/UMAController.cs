@@ -189,5 +189,90 @@ namespace BDA.Web.Controllers
         }
 
         // Action methods for workflow transitions will be added here
+        // Action method for workflow transitions
+        [HttpPost]
+        public JsonResult ChangeStatus(UMAViewModel model)
+        {
+            try
+            {
+                var user = _userManager.GetUserAsync(HttpContext.User).Result;
+                var entity = Db.UMA.Find(Guid.Parse(model.Id));
+
+                if (entity == null)
+                    return Json(new { response = StatusCode(StatusCodes.Status404NotFound), message = "UMA Request not found." });
+
+                string actionType = "";
+                string actionRole = "";
+                string byId = "";
+
+                if (model.Status == Data.Status.TGBSProcessed.ToString()) // Submit to Bank
+                {
+                    entity.Status = model.Status;
+                    entity.TGBSProcessedOn = DateTime.Now;
+                    entity.TGBSProcesserId = user.Id;
+                    entity.InstructionLetterRefNo = model.InstructionLetterRefNo;
+                    entity.BankProcessType = model.BankProcessType;
+
+                    actionType = Data.ActionType.TGBSProcessed.ToString();
+                    byId = user.Id;
+                    actionRole = Data.ActionRole.TGBSBanking.ToString();
+                }
+                else if (model.Status == "SubmittedToANM") // Submit to ANM
+                {
+                    entity.Status = model.Status;
+                    entity.SubmittedToANMOn = DateTime.Now;
+                    entity.TGBSANMSubmitterId = user.Id;
+                    entity.SubmittedToANMDate = model.SubmittedToANMDate;
+
+                    actionType = "SubmittedToANM";
+                    byId = user.Id;
+                    actionRole = Data.ActionRole.TGBSReconciliation.ToString();
+                }
+                else if (model.Status == "PaymentReceived") // Incoming Payment
+                {
+                    entity.Status = model.Status;
+                    entity.PaymentReceivedOn = DateTime.Now;
+                    entity.TGBSPaymentReceiverId = user.Id;
+                    entity.IncomingPaymentComment = model.IncomingPaymentComment;
+
+                    actionType = "PaymentReceived";
+                    byId = user.Id;
+                    actionRole = Data.ActionRole.TGBSReconciliation.ToString();
+                }
+                else if (model.Status == Data.Status.Complete.ToString()) // Complete
+                {
+                    entity.Status = model.Status;
+                    entity.CompletedOn = DateTime.Now;
+                    entity.TGBSValidatorId = user.Id;
+
+                    actionType = Data.ActionType.Complete.ToString();
+                    byId = user.Id;
+                    actionRole = Data.ActionRole.TGBSReconciliation.ToString();
+                }
+
+                entity.UpdatedOn = DateTime.Now;
+                Db.SetModified(entity);
+                Db.SaveChanges();
+
+                // Add action history
+                Db.BankDraftAction.Add(new BankDraftAction
+                {
+                    ApplicationType = Data.AppType.UMA.ToString(),
+                    ActionType = actionType,
+                    On = DateTime.Now,
+                    ById = byId,
+                    ParentId = entity.Id,
+                    ActionRole = actionRole,
+                    Comment = model.Comment
+                });
+                Db.SaveChanges();
+
+                return Json(new { response = StatusCode(StatusCodes.Status200OK), message = "UMA Request updated successfully!" });
+            }
+            catch (Exception e)
+            {
+                return Json(new { response = StatusCode(StatusCodes.Status500InternalServerError), message = e.Message });
+            }
+        }
     }
 }
