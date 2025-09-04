@@ -10,10 +10,10 @@
             color: white;
         }
 
-        .btn-apply:hover {
-            background-color: white;
-            color: black;
-        }
+            .btn-create:hover {
+                background-color: #4a4274;
+                color: white;
+            }
 
         .btn-cancel:hover {
             background-color: red;
@@ -41,7 +41,7 @@
         <div class="row">
             <div class="page-header">
                 <div class="d-flex align-items-center">
-                    <h2 class="page-header-title">Manage Application</h2>
+                    <h2 class="page-header-title">UMA Request Management</h2>
                     <div>
                         <!--<div class="page-header-tools">
                             <a class="btn btn-gradient-01" href="#">Add Widget</a>
@@ -50,6 +50,17 @@
                 </div>
             </div>
         </div>
+
+        <!-- CREATE NEW BUTTON (ADD THIS SECTION) -->
+        <div class="row flex-row">
+            @if (User.HasClaim("_permission", "RequestUMA") || User.IsInRole("Executive") || User.IsInRole("Manager") || User.IsInRole("Head of Zone") || User.IsInRole("Senior Manager"))
+            {
+                <div class="col-xl-3 col-md-6 col-sm-6">
+                    <a id="btnCreateUMA" href="/UMA/Create" class="btn btn-create">Create New UMA Request</a>
+                </div>
+            }
+        </div>
+        <br />
         <!-- End Page Header -->
         <!-- Begin Row -->
         <!-- End Row -->
