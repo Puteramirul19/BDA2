@@ -9,17 +9,15 @@
                         <div class="widget-body">
                             <div class="padding-left-20 padding-right-20">
                                 <div class="form-group row">
-                                    <div class="col-sm-2 form-control-label d-flex align-items-center">Ins. Letter Ref No. <span class="text-danger ml-2">*</span></div>
-                                    <div class="col-xl-4">
-                                        @Html.TextBoxFor(x => x.InstructionLetterRefNo, new { @class = "form-control", @placeholder = "TNB/LETTER/00001C", @readonly = "readonly" })
+                                    <div class="col-sm-2 form-control-label d-flex align-items-center">Ins. Letter Ref No<span class="text-danger ml-2">*</span></div>
+                                    <div class="col-xl-5">
+                                        @Html.TextBoxFor(x => x.InstructionLetterRefNo, new { @class = "form-control", @readonly = "readonly" })
                                     </div>
-                                    <div class="col-xl-2">
-                                        <button type="button" class="btn btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-outline-secondary">Edit</button>
-                                    </div>
-                                    <div class="col-sm-2 form-control-label d-flex align-items-center">Signed Letter <span class="text-danger ml-2">*</span></div>
-                                    <div class="col-xl-2">
-                                        <input type="file" name="SignedLetter" class="btn btn-primary btn-sm" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                                    <div class="col-sm-2 form-control-label d-flex">Bank Statement<span class="text-danger ml-2">*</span></div>
+                                    <div class="col-xl-3">
+                                        <div class="file-upload">
+                                            @Html.TextBoxFor(m => m.BankStatementVM.File, new { type = "file", name = "BankStatement" })
+                                        </div>
                                     </div>
                                 </div>
                             </div>

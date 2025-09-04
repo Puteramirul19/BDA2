@@ -53,6 +53,7 @@ namespace BDA.ViewModel
         //Completion Section
         public DateTime? CompletedOn { get; set; }
         public DateTime? ValueDate { get; set; }
+        public DateTime? ReceivedDate { get; set; }
 
         // File attachments
         public string ScannedBankDraftName { set; get; }

@@ -1,10 +1,41 @@
 ﻿@model BDA.ViewModel.UMAViewModel
 @{
-    ViewData["Title"] = "UMA Request - Create";
+    ViewData["Title"] = "UMA Request";
 }
 
 @section Styles {
     <link href="~/lib/ladda/ladda-themeless.min.css" rel="stylesheet" />
+
+    <style>
+        .btn-create {
+            background-color: #5d5386;
+            color: white;
+        }
+
+        .btn-apply:hover {
+            background-color: white;
+            color: black;
+        }
+
+        .btn-cancel:hover {
+            background-color: red;
+            color: white;
+        }
+
+        .btn-recover:hover {
+            background-color: limegreen;
+            color: white;
+        }
+
+        .btn-lost:hover {
+            background-color: #FFC300;
+            color: white;
+        }
+
+        select.filter {
+            height: 33px !important;
+        }
+    </style>
 }
 
 <div class="content-inner active">
@@ -13,8 +44,12 @@
         <div class="row">
             <div class="page-header">
                 <div class="d-flex align-items-center">
-                    <h2 class="page-header-title">UMA Request - Create</h2>
-                    <div></div>
+                    <h2 class="page-header-title">UMA Request</h2>
+                    <div>
+                        <!--<div class="page-header-tools">
+                            <a class="btn btn-gradient-01" href="#">Add Widget</a>
+                        </div>-->
+                    </div>
                 </div>
             </div>
         </div>
@@ -49,6 +84,8 @@
                                     @using (Html.BeginForm("Create", "UMA", Model, FormMethod.Post, false, new { @id = "formCreateUMA", @class = "form-horizontal needs-validation", @novalidate = "novalidate" }))
                                     {
                                         @Html.Partial("_CreateDetails.cshtml")
+                                        @Html.Partial("_Document.cshtml")
+                                        @Html.Partial("_ActionHistory.cshtml")
                                         @Html.Partial("_Comments.cshtml")
                                         @Html.Partial("_ActionButton.cshtml")
                                     }
@@ -66,5 +103,5 @@
 @section Scripts {
     <script src="~/lib/ladda/spin.min.js"></script>
     <script src="~/lib/ladda/ladda.min.js"></script>
-    <script src="~/js/UMA/create.js"></script>
+    <script src="~/js/uma.js"></script>
 }

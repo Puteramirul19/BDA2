@@ -1,6 +1,6 @@
 ﻿@model BDA.ViewModel.UMAViewModel
 @{
-    ViewData["Title"] = "UMA Request - Submit to Bank";
+    ViewData["Title"] = "UMA Request - Process";
 }
 
 @section Styles {
@@ -13,7 +13,7 @@
         <div class="row">
             <div class="page-header">
                 <div class="d-flex align-items-center">
-                    <h2 class="page-header-title">UMA Request - Submit to Bank</h2>
+                    <h2 class="page-header-title">UMA Request - Process</h2>
                     <div></div>
                 </div>
             </div>
@@ -49,6 +49,7 @@
                                     @Html.Partial("_CreateDetails.cshtml")
                                     @Html.Partial("_Document.cshtml")
                                     @Html.Partial("_ActionHistory.cshtml")
+                                    @Html.Partial("_Comments.cshtml")
                                 </div>
                                 <div class="tab-pane fade active show" id="tab-2" role="tabpanel" aria-labelledby="base-tab-2">
                                     @using (Html.BeginForm("ChangeStatus", "UMA", Model, FormMethod.Post, false, new { @id = "formProcessUMA", @class = "form-horizontal needs-validation", @novalidate = "novalidate" }))
@@ -71,5 +72,5 @@
 @section Scripts {
     <script src="~/lib/ladda/spin.min.js"></script>
     <script src="~/lib/ladda/ladda.min.js"></script>
-    <script src="~/js/UMA/process.js"></script>
+    <script src="~/js/uma.js"></script>
 }

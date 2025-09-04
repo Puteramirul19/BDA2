@@ -2,27 +2,21 @@
 
 <div id="CreateGroupBtn" class="wizard text-center" style="display:none">
     <button id="btnDraft" data-target="#save-modal" class="btn btn-secondary ripple" data-toggle="modal">Save as Draft</button>
-    <button id="btnCreate" href="#" data-target="#confirmation-create-modal" class="btn btn-success" data-toggle="modal">Create</button>
+    <button id="btnCreate" href="#" data-target="#confirmation-create-modal" class="btn btn-success" data-toggle="modal">Submit</button>
 </div>
 
 <div id="ProcessGroupBtn" class="wizard text-center" style="display:none">
-    <button href="#" data-target="#save-modal" class="btn btn-secondary ripple" data-toggle="modal">Save as Draft</button>
-    <button id="btnSubmitToBank" href="#" data-target="#confirmation-submittobank-modal" class="btn btn-success" data-toggle="modal">Submit to Bank</button>
+    <button id="btnSaveProcess" data-target="#save-modal" class="btn btn-secondary ripple" data-toggle="modal">Save</button>
+    <button id="btnProcess" href="#" data-target="#confirmation-process-modal" class="btn btn-success" data-toggle="modal">Process</button>
 </div>
 
 <div id="ReceiveGroupBtn" class="wizard text-center" style="display:none">
-    <button href="#" data-target="#save-modal" class="btn btn-secondary ripple" data-toggle="modal">Save as Draft</button>
-    <button id="btnSubmitToANM" href="#" data-target="#confirmation-submittoanm-modal" class="btn btn-success" data-toggle="modal">Submit to ANM</button>
+    <button id="btnReceive" href="#" data-target="#confirmation-receive-modal" class="btn btn-success" data-toggle="modal">Receive</button>
 </div>
 
 <div id="ConfirmGroupBtn" class="wizard text-center" style="display:none">
-    <button id="btnConfirmPayment" href="#" data-target="#confirmation-confirmpayment-modal" class="btn btn-success" data-toggle="modal">Confirm Incoming Payment</button>
+    <button id="btnCompleteConfirm" href="#" data-target="#confirmation-complete-modal" class="btn btn-success" data-toggle="modal">Complete</button>
 </div>
 
-<div id="CompleteGroupBtn" class="wizard text-center" style="display:none">
-    <button id="btnComplete" href="#" data-target="#confirmation-complete-modal" class="btn btn-success" data-toggle="modal">Complete</button>
-</div>
-
-<!-- Hidden fields for form submission -->
 @Html.HiddenFor(x => x.Status)
 @Html.HiddenFor(x => x.Id)

@@ -10,21 +10,32 @@
                             <h4>Documents</h4>
                         </div>
                         <div class="widget-body">
-                            <div class="table-responsive">
-                                <table id="tblDocuments" class="table table-hover mb-0" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th>Document Type</th>
-                                            <th>File Name</th>
-                                            <th>Uploaded Date</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Documents will be populated here -->
-                                    </tbody>
-                                </table>
-                            </div>
+                            <table class="table table-bordered mb-0">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 25%;">Document</th>
+                                        <th style="width: 75%;">File</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Scanned Bank Draft</td>
+                                        <td>
+                                            <div class="file-upload before-submit">
+                                                @Html.TextBoxFor(m => m.ScannedBankDraftVM.File, new { type = "file", name = "ScannedBankDraft" })
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Scanned Memo</td>
+                                        <td>
+                                            <div class="file-upload before-submit">
+                                                @Html.TextBoxFor(m => m.ScannedMemoVM.File, new { type = "file", name = "ScannedMemo" })
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
