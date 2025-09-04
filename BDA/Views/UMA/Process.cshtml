@@ -1,0 +1,75 @@
+﻿@model BDA.ViewModel.UMAViewModel
+@{
+    ViewData["Title"] = "UMA Request - Submit to Bank";
+}
+
+@section Styles {
+    <link href="~/lib/ladda/ladda-themeless.min.css" rel="stylesheet" />
+}
+
+<div class="content-inner active">
+    <div class="container-fluid">
+        <!-- Begin Page Header-->
+        <div class="row">
+            <div class="page-header">
+                <div class="d-flex align-items-center">
+                    <h2 class="page-header-title">UMA Request - Submit to Bank</h2>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+        <!-- End Page Header -->
+        <!-- Begin Row -->
+        <div class="row flex-row">
+            <div class="col-xl-12 col-md-12">
+                <div class="widget has-shadow">
+                    <div class="widget-body">
+                        @Html.Partial("_StatusBar.cshtml")
+                        <br>
+                    </div>
+
+                    <div class="widget has-shadow">
+                        <div class="widget-body sliding-tabs">
+                            <ul class="nav nav-tabs form-tab" id="ul-form-tab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link" id="base-tab-1" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="true">Create Details</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="base-tab-2" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false">Process Details</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link disabled" id="base-tab-3" data-toggle="tab" href="#tab-3" role="tab" aria-controls="tab-3" aria-selected="false">Submit Details</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link disabled" id="base-tab-4" data-toggle="tab" href="#tab-4" role="tab" aria-controls="tab-4" aria-selected="false">Complete Details</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content pt-3">
+                                <div class="tab-pane fade" id="tab-1" role="tabpanel" aria-labelledby="base-tab-1">
+                                    @Html.Partial("_CreateDetails.cshtml")
+                                    @Html.Partial("_Document.cshtml")
+                                    @Html.Partial("_ActionHistory.cshtml")
+                                </div>
+                                <div class="tab-pane fade active show" id="tab-2" role="tabpanel" aria-labelledby="base-tab-2">
+                                    @using (Html.BeginForm("ChangeStatus", "UMA", Model, FormMethod.Post, false, new { @id = "formProcessUMA", @class = "form-horizontal needs-validation", @novalidate = "novalidate" }))
+                                    {
+                                        @Html.Partial("_ProcessDetails.cshtml")
+                                        @Html.Partial("_Comments.cshtml")
+                                        @Html.Partial("_ActionButton.cshtml")
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Row -->
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/ladda/spin.min.js"></script>
+    <script src="~/lib/ladda/ladda.min.js"></script>
+    <script src="~/js/UMA/process.js"></script>
+}

@@ -1,0 +1,50 @@
+﻿<div class="wizard">
+    <div class="wizard-inner">
+        <div class="connecting-line"></div>
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="nav-item active">
+                <a href="#" class="nav-link">
+                    <span class="round-tab">
+                        <span class="round-tab">1</span>
+                    </span>
+                    <small>Create</small>
+                </a>
+            </li>
+            <li role="presentation" class="nav-item">
+                <a href="#" class="nav-link">
+                    <span class="round-tab">
+                        <span class="round-tab">2</span>
+                    </span>
+                    <small>Submit to Bank</small>
+                </a>
+            </li>
+            <li role="presentation" class="nav-item">
+                <a href="#" class="nav-link">
+                    <span class="round-tab">
+                        <span class="round-tab">3</span>
+                    </span>
+                    <small>Submit to ANM</small>
+                </a>
+            </li>
+            <li role="presentation" class="nav-item">
+                <a href="#" class="nav-link">
+                    <span class="round-tab">
+                        <span class="round-tab">4</span>
+                    </span>
+                    <small>Incoming Payment</small>
+                </a>
+            </li>
+            <li role="presentation" class="nav-item">
+                <a href="#" class="nav-link">
+                    <span class="round-tab">
+                        <span class="round-tab">5</span>
+                    </span>
+                    <small>Completed</small>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div>
+    @Html.Partial("_StatusPendingAction.cshtml")
+</div>

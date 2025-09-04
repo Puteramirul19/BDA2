@@ -1,0 +1,141 @@
+﻿@model BDA.ViewModel.UMAViewModel
+
+<div id="pnl_main_form" class="widget-body">
+    <div class="padding-left-20 padding-right-20">
+        <div class="row flex-row">
+            <div class="col-xl-12 col-md-12">
+                <div class="table-responsive">
+                    <div class="widget has-shadow">
+                        <div class="widget-body">
+                            <div class="padding-left-20 padding-right-20">
+                                <div class="form-group row">
+                                    <div class="col-sm-2 form-control-label d-flex align-items-center">Ref No.</div>
+                                    <div class="col-xl-4">
+                                        @Html.TextBoxFor(x => x.RefNo, new { @class = "form-control", @readonly = "readonly" })
+                                        @Html.HiddenFor(x => x.BankDraftId)
+                                        @Html.HiddenFor(x => x.Id)
+                                    </div>
+                                    <div class="col-sm-2 form-control-label d-flex align-items-center">ERMS Document No. <span class="text-danger ml-2">*</span></div>
+                                    <div class="col-xl-4">
+                                        @Html.TextBoxFor(x => x.ERMSDocNo, new { @class = "form-control", required = "required" })
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-2 form-control-label d-flex align-items-center">Justification of Loss <span class="text-danger ml-2">*</span></div>
+                                    <div class="col-xl-10">
+                                        @Html.TextAreaFor(x => x.ReasonUMA, new { @class = "form-control", @rows = "3", @placeholder = "Justification of Loss", required = "required" })
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-2 form-control-label d-flex align-items-center">Proj No/ Assignment/ BD No/ Ref No <span class="text-danger ml-2">*</span></div>
+                                    <div class="col-xl-4">
+                                        <div class="input-group">
+                                            @Html.TextBoxFor(x => x.ProjectNo, new { @class = "form-control", @placeholder = "Search Proj No.", required = "required" })
+                                            <span class="input-group-btn">
+                                                <input type="button" id="btnLoadProjDetails" class="btn btn-outline-primary mr-1 mb-2" value="Search" data-toggle="modal" data-target="#search-results-modal">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 form-control-label d-flex align-items-center">BD No. <span class="text-danger ml-2">*</span></div>
+                                    <div class="col-xl-4">
+                                        @Html.TextBoxFor(x => x.BDNo, new { @class = "form-control", required = "required" })
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-2 form-control-label d-flex align-items-center">BD Requestor's Name</div>
+                                    <div class="col-xl-4">
+                                        @Html.TextBoxFor(x => x.BDRequesterName, new { @class = "form-control", disabled = "disabled" })
+                                    </div>
+                                    <div class="col-sm-2 form-control-label d-flex align-items-center">Value Date <span class="text-danger ml-2">*</span></div>
+                                    <div class="col-xl-4">
+                                        @Html.TextBoxFor(x => x.SubmittedOn, new { @class = "form-control", type = "date" })
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-2 form-control-label d-flex align-items-center">Company Code <span class="text-danger ml-2">*</span></div>
+                                    <div class="col-xl-4">
+                                        @Html.TextBoxFor(x => x.CoCode, new { @class = "form-control", @readonly = "readonly", required = "required" })
+                                    </div>
+                                    <div class="col-sm-2 form-control-label d-flex align-items-center">Business Area <span class="text-danger ml-2">*</span></div>
+                                    <div class="col-xl-4">
+                                        @Html.TextBoxFor(x => x.BA, new { @class = "form-control", @readonly = "readonly", required = "required" })
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-2 form-control-label d-flex align-items-center">Name on BD <span class="text-danger ml-2">*</span></div>
+                                    <div class="col-xl-4">
+                                        @Html.TextBoxFor(x => x.NameOnBD, new { @class = "form-control", disabled = "disabled" })
+                                    </div>
+                                    <div class="col-sm-2 form-control-label d-flex align-items-center">BD Amount <span class="text-danger ml-2">*</span></div>
+                                    <div class="col-xl-4">
+                                        @Html.TextBoxFor(x => x.BDAmount, new { @class = "form-control", @readonly = "readonly" })
+                                    </div>
+                                </div>
+
+                                <!-- Supporting Documents Section -->
+                                <div class="form-group row">
+                                    <div class="col-xl-12">
+                                        <h5>Supporting Documents</h5>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>No.</th>
+                                                        <th>Name</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>Scan Bank Draft</td>
+                                                        <td>
+                                                            <input type="file" name="ScannedBankDraft" class="btn btn-primary btn-sm" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td>Supporting document cancellation/UMA</td>
+                                                        <td>
+                                                            <input type="file" name="ScannedMemo" class="btn btn-primary btn-sm" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <!-- Additional Document Section -->
+                                        <div class="form-group row mt-3">
+                                            <div class="col-xl-12">
+                                                <label>Additional Document</label>
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>No.</th>
+                                                                <th>Name</th>
+                                                                <th>Attachment</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>1</td>
+                                                                <td><input type="text" class="form-control" placeholder="Document name"></td>
+                                                                <td><input type="file" class="form-control-file"></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <button type="button" class="btn btn-secondary btn-sm">Add Attachment</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+﻿@model BDA.ViewModel.UMAViewModel
+
+<div class="widget-body">
+    <div class="padding-left-20 padding-right-20">
+        <div class="row flex-row">
+            <div class="col-xl-12 col-md-12">
+                <div class="table-responsive">
+                    <div class="widget has-shadow">
+                        <div class="widget-body">
+                            <div class="padding-left-20 padding-right-20">
+                                <div class="form-group row">
+                                    <div class="col-sm-2 form-control-label d-flex align-items-center">Comment</div>
+                                    <div class="col-xl-10">
+                                        @Html.TextAreaFor(x => x.Comment, new { @class = "form-control", @rows = "3", @placeholder = "Enter your comment here..." })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
