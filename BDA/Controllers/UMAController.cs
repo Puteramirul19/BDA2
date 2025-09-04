@@ -28,7 +28,10 @@ namespace BDA.Web.Controllers
         {
             return View();
         }
-
+        public IActionResult List()
+        {
+            return View();
+        }
         public IActionResult BankDraftList()
         {
             return View();
@@ -111,4 +114,5 @@ namespace BDA.Web.Controllers
             return View();
         }
     }
+
 }
